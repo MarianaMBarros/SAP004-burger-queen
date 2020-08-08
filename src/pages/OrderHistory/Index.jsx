@@ -4,11 +4,15 @@ import Button from "../../components/Button";
 import logo from "../../img/logo1.png";
 import Command from "../../components/Command/Index";
 import { getData } from "../../firebase/firebaseService";
+
+import Flatpickr from 'react-flatpickr'
+
 import "./style.css";
 
 const OrderHistory = () => {
   const history = useHistory();
   const [requests, setRequests] = useState([]);
+  const [calendar, setCalendar] = useState(new Date());
 
   useEffect(() => {
     function get(data) {
@@ -26,7 +30,10 @@ const OrderHistory = () => {
       <Button className="button button-history" value="Voltar" onClick={onClickBack} />
       <div className="container-history">
         {/* <img className="img-history" src={logo} alt="logo" /> */}
-        {/* <span>Calendario</span> */}
+        <Flatpickr className="input calendar"
+          onChange={setCalendar}
+          value={calendar}
+        />
       </div>
       <div className="request" >
         {requests.map(request =>

@@ -13,8 +13,10 @@ export const getDataByStatus = (calback, status) => {
     })
 }
 
-export const getData = (calback) => {
+export const getData = (calendar, calback) => {
   firebase.firestore().collection("orders")
+    .where("requestDate", "<=", firebase.firestore.Timestamp.fromDate(new Date(calendar.getFullYear(), calendar.getMonth(), calendar.getDate(), 23, 59, 59)))
+    .where("requestDate", ">=", firebase.firestore.Timestamp.fromDate(calendar))
     .onSnapshot((querySnapshot) => {
       let itens = [];
       querySnapshot.forEach(function (doc) {

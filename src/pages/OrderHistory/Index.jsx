@@ -18,8 +18,8 @@ const OrderHistory = () => {
     function get(data) {
       setRequests(data)
     }
-    getData(get)
-  }, []);
+    getData(calendar, get)
+  }, [calendar]);
 
   const onClickBack = () => {
     history.push("/");
@@ -31,7 +31,8 @@ const OrderHistory = () => {
       <div className="container-history">
         {/* <img className="img-history" src={logo} alt="logo" /> */}
         <Flatpickr className="input calendar"
-          onChange={setCalendar}
+          onChange={(e) => setCalendar(e[0])}
+          // onChange={ item setCalendar}
           value={calendar}
         />
       </div>

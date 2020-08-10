@@ -25,3 +25,6 @@
   border: solid 2px #d97308;
   color: #eeeeee;
 }
+.container-history{
+  display: flex;
+}

@@ -4,10 +4,11 @@ import "./style.css";
 import { getDataByStatus, notifyHall } from "../../firebase/firebaseService";
 import { useAuth } from "../../contexts/auth";
 import { toast } from "react-toastify";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import Bag from "../../img/bag.png";
 
 const Header = () => {
+  const history = useHistory();
   const { signOut, signed, user } = useAuth();
   const [setError] = useState("");
   const [requests, setRequests] = useState(0);
@@ -31,6 +32,8 @@ const Header = () => {
     }
   }, [user]);
 
+
+
   const handleLogout = async () => {
     try {
       await signOut();
@@ -38,6 +41,15 @@ const Header = () => {
       setError(error);
     }
   };
+
+  const handleDelivery = async () => {
+    try {
+      history.push("/delivery");
+    } catch (error) {
+      setError(error);
+    }
+  }
+
 
   if (signed === true) {
     return (
@@ -72,7 +84,7 @@ const Header = () => {
             <span>Burguer Queen</span>
             <img className="img" src={logo} alt="logo" />
           </div>
-          <div className="box-bag">
+          <div className="box-bag" onClick={handleDelivery}>
             <img src={Bag} className="bag" />
             {user.type === "service" ? (
               <span className="orders">{requests}</span>

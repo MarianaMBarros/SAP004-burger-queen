@@ -30,16 +30,16 @@ const OrderHistory = () => {
   console.log(array);
   return (
     <div className="container">
-      <Button
-        className="button button-history"
-        value="Voltar"
-        onClick={onClickBack}
-      />
       <div className="container-history">
         <Flatpickr className="input calendar"
           onChange={(e) => setCalendar(e[0])}
           // onChange={ item setCalendar}
           value={calendar}
+        />
+        <Button
+          className="button button-history"
+          value="Voltar"
+          onClick={onClickBack}
         />
       </div>
       <div className="request">

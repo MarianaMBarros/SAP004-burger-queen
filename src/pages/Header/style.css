@@ -1,7 +1,6 @@
 .header {
-  position: fixed;
-  top: 0;
-  left: 0;
+  position: absolute;
+  top: 0%;
   background-color: #272626;
   padding: 7px 0;
   width: 100%;
@@ -17,13 +16,12 @@
   justify-content: center;
   display: flex;
   align-items: center;
-  /* margin-left: 40%; */
   width: 100%;
 }
 .logo-header span {
   margin-top: 15px;
-  color: #ffffff;
   font-size: 20px;
+  color: #eeeeee;
 }
 
 #menuToggle {
@@ -117,4 +115,33 @@
 
 #menuToggle input:checked ~ ul {
   transform: none;
+}
+
+/* .tras{
+  transform: none!important;
+} */
+
+.orders {
+  z-index: 10;
+  font-size: 13px;
+  color: #d97308;
+  position: relative;
+  left: 17px;
+  top: -27px;
+}
+.bag {
+  z-index: 0;
+  width: 40px;
+}
+.box-bag:hover {
+  background-color: #d97408;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.box-bag:hover .orders {
+  color: #eeeeee;
+}
+.box-bag {
+  height: 40px;
+  margin-right: 20px;
 }

@@ -23,17 +23,17 @@ const Table = (props) => {
       .indexOf(item);
   };
 
-  const imgBurguer = (burguers, options) => {
-    let result = "";
-    const rows = [];
-    burguers.forEach((a, i) => {
-      // rows.push
-      result += "\n\n\n\n\n" + a;
-      result += options[i];
-    });
-
-    //  var newString = "abc12345#$*%".replace(/([^\d]*)(\d*)([^\w]*)/, replacer);
-    return result;
+  const imgBurguer = (product, i) => {
+    return (
+      <div className="info">
+        <p className="info-order info-burguer">
+          {i + 1 + " " + product.burguer[i]}
+        </p>
+        <p className="info-order info-burguer">
+          {product.option && product.option[i]}
+        </p>
+      </div>
+    );
   };
 
   const resultOptions = (product) => {
@@ -51,6 +51,11 @@ const Table = (props) => {
   };
 
   const creatProduct = (product, i) => {
+    const rows = [];
+    product.burguer &&
+      product.burguer.forEach((a, i) => {
+        rows.push(imgBurguer(product, i));
+      });
     return (
       <>
         <tr key={product.item + i + product.category}>
@@ -59,10 +64,7 @@ const Table = (props) => {
               <td colSpan="2">
                 {product.amount + " "}
                 {product.item}
-                <div className="info-order">
-                  {product.burguer &&
-                    imgBurguer(product.burguer, product.option)}
-                </div>
+                {rows}
               </td>
               <td align="center">
                 R$
@@ -99,7 +101,7 @@ const Table = (props) => {
             </>
           )}
         </tr>
-        {product.category !== "Total" && (
+        {product.category !== "Resumo" && (
           <tr>
             <td className="info-order" valign="top">
               R${" " + product.price.toFixed(2).replace(".", ",")}
@@ -126,12 +128,7 @@ const Table = (props) => {
           )}
         </tr>
         <tr>
-          {/* <th align="start" className="menu-item">
-          Item
-        </th> */}
-
           <th
-            // className="menu-type"
             align="left"
             colSpan="3"
             className={
@@ -142,7 +139,6 @@ const Table = (props) => {
           >
             {product.category.toUpperCase()}
           </th>
-          {/* <th className="menu-value">Valor</th> */}
           <th className="menu-button"></th>
         </tr>
         <tr>
@@ -313,10 +309,10 @@ const Table = (props) => {
     );
   };
 
-  const resume = () => {
+  const resume = (menu) => {
     return (
       <>
-        <tr>
+        <tr key={menu.category + menu.id}>
           <td colSpan="4" className="resume"></td>
         </tr>
         <tr>
@@ -325,9 +321,6 @@ const Table = (props) => {
             R$ {" " + props.total.toFixed(2).replace(".", ",")}
           </td>
           <td className="del">
-            {/* align="right"> */}
-            {/* className="del"> */}
-            {/* {props.menu.reduce((acc, att) => acc + att.amount, 0)} */}
             <ButtonIcon
               func={props.func[1]}
               name="delete"
@@ -336,14 +329,27 @@ const Table = (props) => {
             />
           </td>
         </tr>
+        <tr>
+          <td colSpan="4" align="center">
+            <textarea
+              className="note"
+              name=""
+              maxlength="140"
+              placeholder="Observações:"
+              id=""
+              onChange={(event) => props.note(event.target.value)}
+              // onChange={(e) => func[2](e)}
+            ></textarea>
+          </td>
+        </tr>
       </>
     );
   };
 
   return (
-    <table key={props.className} className={props.className}>
+    <table key={props.className + props.menu} className={props.className}>
       <tbody>{creatTable()}</tbody>
-      {props.className === "table-total" && resume()}
+      {props.className === "table-total" && resume(props.menu)}
     </table>
   );
 };
